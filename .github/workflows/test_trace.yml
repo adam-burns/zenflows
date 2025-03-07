@@ -68,12 +68,8 @@ jobs:
             | .services.srv.environment.DB_PASS = "'"$db_pass"'"
             | .services.db.environment.POSTGRES_PASSWORD = "'"$db_pass"'"
           ' devop/.docker-compose.templ >devop/docker-compose.yml
-
       - name: check-out jupyter notebook repo
-        uses: actions/checkout@v3
-        with:
-          repository: interfacerproject/interfacer-notebook
-          path: notebook
+        run: git clone https://github.com/interfacerproject/interfacer-notebook notebook
       - name: Create docker file for testing with notebook
         run: |
             cat <<- EOF > ./notebook/tmp.docker
